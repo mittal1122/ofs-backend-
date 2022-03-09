@@ -1,5 +1,4 @@
 const SubcategoryModel = require("../model/subcategory-model")
-const UserModel = require("../model/user-model")
 
 //add
 module.exports.addSubcategory = function(req,res) {
@@ -52,7 +51,7 @@ module.exports.deleteSubcategory = function(req,res){
 
 module.exports.updateSubcategory = function(req,res){
      
-    let subcategoryId = req.body.subcategoryId 
+    let subcategoryId = req.params.subcategoryId 
     let subcategoryName = req.body.subcategoryName
     let isActive = req.body.isActive
 

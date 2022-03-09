@@ -7,6 +7,7 @@ module.exports.addcustAddress=function(req,res){
     let user = req.body.user
     let state= req.body.state
     let city = req.body.city
+    
 
 
     let custAddress= new custAddressModel({
@@ -14,7 +15,8 @@ module.exports.addcustAddress=function(req,res){
         pincode:pincode,
         user:user,
         state:state,
-        city:city
+        city:city,
+        isActive:req.body.isActive
     })
 
     custAddress.save(function(err,data){
@@ -54,14 +56,15 @@ module.exports.deletecustAddress= function(req,res){
 }
 //update
 module.exports.updatecustAddress=function(req,res){
-    let custAddressId=req.body.custAddressId
+    let custAddressId=req.params.custAddressId
     let address=req.body.address
     let pincode=req.body.pincode
     let user= req.body.user
     let state= req.body.state
     let city= req.body.state
+    let isActive= req.body.isActive
 
-    custAddressModel.updateOne({_id:custAddressId},{address:address,pincode:pincode,user:user,state:state,city:city},function(err,data){
+    custAddressModel.updateOne({_id:custAddressId},{address:address,pincode:pincode,user:user,state:state,city:city,isActive:isActive},function(err,data){
         if(err){
             res.json({msg:"Something went wrong!!!",status:-1,data:err})
         }else{

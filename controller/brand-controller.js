@@ -53,7 +53,7 @@ module.exports.deleteBrand = function(req,res){
 
 
 module.exports.updateBrand = function(req,res){
-    let brandId = req.body.brandId 
+    let brandId = req.params.brandId 
     let brandName = req.body.brandName 
 
     BrandModel.updateOne({_id:brandId},{brandName:brandName},function(err,data){

@@ -1,75 +1,68 @@
-const RoleModel = require("../model/role-model")
+const RoleModel = require("../model/role-model");
 
+module.exports.addRole = function (req, res) {
+  //db insert role
 
-module.exports.addRole=function (req,res){
-    //db insert role
+  console.log(req.body.roleName);
 
-    console.log(req.body.roleName);
-    
+  let role = new RoleModel({
+    roleName: req.body.roleName,
+  });
 
-    let role= new RoleModel({
-        roleName:req.body.roleName
-    })
+  role.save(function (err, success) {
+    if (err) {
+      // console.log(err)
+      res.json({ msg: "SMW", status: -1, data: req.body });
+    } else {
+      res.json({ msg: "role added", status: 200, data: success });
+    }
+  }); 
+  //res.json({msg:'role added', status:200, data:req.body})
+};
 
-    role.save(function(err,success){
-        if(err){
-            // console.log(err)
-            res.json({msg:"SMW", status:-1 ,data:req.body})
-        }
-        else{
-            res.json({msg:"role added", status:200, data:success})
-        }
-    })
-    //res.json({msg:'role added', status:200, data:req.body})
-}
+//list
+module.exports.getAllRoles = function (req, res) {
 
-module.exports.getAllRoles = function(req,res){
+  //REST
+  RoleModel.find(function (err, roles) {
+    if (err) {
+      res.json({ msg: "Something went wrong!!!", status: -1, data: err });
+    } else {
+      res.json({ msg: "roles...", status: 200, data: roles });
+    }
+  });
+};
 
-    //role -> db --> select * from roles 
-    //model 
+// delete
+module.exports.deleteRole = function (req, res) {
+  let roleId = req.params.roleId;
 
-    //REST 
-    RoleModel.find(function(err,roles){
-        if(err){
-            res.json({msg:"Something went wrong!!!",status:-1,data:err})
-        }else{
-            res.json({msg:"roles...",status:200,data:roles})
+  //delete from role where roleId = 1
+  RoleModel.deleteOne({ _id: roleId }, function (err, data) {
+    if (err) {
+      res.json({ msg: "Something went wrong!!!", status: -1, data: err });
+    } else {
+      res.json({ msg: "removed...", status: 200, data: data });
+    }
+  });
+};
 
-        }
+module.exports.updateRole = function (req, res) {
+  //update role set roleName = admin where roleId = 12121
+  let roleId = req.params.roleId;
+  let roleName = req.body.roleName;
 
-    })
-
-}
-// /sdfdsfsdfdsf 
-module.exports.deleteRole = function(req,res){
-    let roleId = req.params.roleId
-
-    //delete from role where roleId = 1 
-    RoleModel.deleteOne({"_id":roleId},function(err,data){
-        if(err){
-            res.json({msg:"Something went wrong!!!",status:-1,data:err})
-        }else{
-            res.json({msg:"removed...",status:200,data:data})
-        }
-    })
-
-}
-
-
-module.exports.updateRole = function(req,res){
-
-    //update role set roleName = admin where roleId = 12121 
-    let roleId = req.body.roleId 
-    let roleName = req.body.roleName 
-
-    RoleModel.updateOne({_id:roleId},{roleName:roleName},function(err,data){
-        if(err){
-            res.json({msg:"Something went wrong!!!",status:-1,data:err})
-        }else{
-            res.json({msg:"updated...",status:200,data:data})
-        }
-    })
-
-}
+  RoleModel.updateOne(
+    { _id: roleId },
+    { roleName: roleName },
+    function (err, data) {
+      if (err) {
+        res.json({ msg: "Something went wrong!!!", status: -1, data: err });
+      } else {
+        res.json({ msg: "updated...", status: 200, data: data });
+      }
+    }
+  );
+};
 
 //roleName

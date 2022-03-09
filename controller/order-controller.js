@@ -51,7 +51,7 @@ module.exports.deleteOrder=function(req,res){
 
 //update
 module.exports.updateOrder=function(req,res){
-    let orderId=req.body.orderId
+    let orderId=req.params.orderId
     let total=req.body.total
     let isRefund= req.body.isRefund
     let status= req.body.status

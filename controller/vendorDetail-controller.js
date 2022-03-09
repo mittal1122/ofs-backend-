@@ -69,7 +69,7 @@ module.exports.deletevendorDetail = function(req,res){
 //update
 
 module.exports.updatevendorDetails =function(req,res){      
-    let vendorId =req.body.vendorId
+    let vendorId =req.params.vendorId
     let vendorName=req.body.vendorName
     let contactNumber=req.body.contactNumber
     let address =req.body.address

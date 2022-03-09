@@ -40,7 +40,7 @@ module.exports.getAllpayments=function(req,res){
 
 //delete
 module.exports.deletepayment=function(req,res){
-    let paymentId= req.param.paymentId
+    let paymentId= req.params.paymentId
 
     paymentModel.deleteOne({_id:paymentId},function(err,data){
         if(err){
@@ -53,7 +53,7 @@ module.exports.deletepayment=function(req,res){
 
 //update
 module.exports.updatepayment= function(req,res){
-    let paymentId= req.body.paymentId
+    let paymentId= req.params.paymentId
     let totalAmount = req.body.totalAmount
     let isRefundprocess = req.body.isRefundprocess
     let user =req.body.user

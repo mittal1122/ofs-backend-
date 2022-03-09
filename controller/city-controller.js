@@ -54,7 +54,7 @@ module.exports.deleteCity = function(req,res){
 
 module.exports.updateCity = function(req,res){
 
-    let cityId = req.body.cityId 
+    let cityId = req.params.cityId 
     let state = req.body.state
 
     CityModel.updateOne({_id:cityId},{state:state},function(err,data){

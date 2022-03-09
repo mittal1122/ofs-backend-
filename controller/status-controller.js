@@ -46,7 +46,7 @@ module.exports.deleteStatus=function(req,res){
 //update
 module.exports.updatestatus=function(req,res){
     let status=req.body.status
-    let statusId= req.body.statusId
+    let statusId= req.params.statusId
 
     statusModel.updateOne({_id:statusId},{status:status},function(err,data){
         if(err){

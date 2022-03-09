@@ -51,7 +51,7 @@ module.exports.deleteOrder_details=function(req,res){
 
 //update
 module.exports.updateoeder_details=function(req,res){
-    let order_detailId=req.body.order_detailId
+    let order_detailId=req.params.order_detailId
     let qty=req.body.qty
     let price=req.body.price
     let user=req.body.user

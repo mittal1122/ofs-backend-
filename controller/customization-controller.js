@@ -48,7 +48,7 @@ module.exports.deletecustomization = function(req,res){
 //update
 
 module.exports.upadatecustomization=function(req,res){
-    let customId= req.body.customId
+    let customId= req.param.customId
     let Type = req.body.Type
     let Discription=req.body.Discription
     let user=req.body.user

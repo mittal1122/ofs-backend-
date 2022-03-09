@@ -45,7 +45,7 @@ module.exports.deleteStates = function(req,res){
 
 module.exports.UpdateState = function(req,res){
     let stateName= req.body.stateName
-    let stateId= req.body.stateId
+    let stateId= req.params.stateId
     StateModel.updateOne({_id:stateId},{stateName:stateName}, function(err,data){
         if(err){
             res.json({msg:"Something went wrong!!!",status:-1,data:err})

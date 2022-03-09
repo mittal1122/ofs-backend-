@@ -51,7 +51,7 @@ module.exports.deleteVendorProduct=function(req,res){
 
 //update
 module.exports.updatevendorProduct=function(req,res){
-    let vendorproductId=req.body.vendorproductId
+    let vendorproductId=req.params.vendorproductId
     let qty=req.body.qty
     let price=req.body.price
     let product=req.body.product

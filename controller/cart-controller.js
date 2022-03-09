@@ -51,7 +51,7 @@ module.exports.deletecart=function(req,res){
 
 //update
 module.exports.updatecart=function(req,res){
-    let cartId=req.body.cartId
+    let cartId=req.params.cartId
     let qty= req.body.qty
     let vendorproduct=req.body.vendorproduct
     let user=req.body.user
