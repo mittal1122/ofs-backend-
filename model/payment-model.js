@@ -10,7 +10,7 @@ const paymentSchema = new mongoose.Schema({
         type:String
     },
     isRefundprocess:{
-        type:String
+        type:Boolean
     },
     order:{
         type:mongoose.Schema.Types.ObjectId,
@@ -19,6 +19,13 @@ const paymentSchema = new mongoose.Schema({
     user:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"user"
+    },
+    mode :{
+        type:String,
+        require:true
+    },
+    status :{
+        type :Boolean
     }
 
 })

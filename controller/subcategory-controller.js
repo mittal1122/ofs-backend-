@@ -21,6 +21,39 @@ module.exports.addSubcategory = function(req,res) {
     })
 }
 
+// get by id
+
+module.exports.getById= function(req,res){
+
+    let id =  req.params.subcategoryId;
+  
+  
+    SubcategoryModel.findById({_id:id}).populate('category').exec(function(err,data){
+      if (err) {
+        res.json({ msg: "Something went wrong!!!", status: -1, data: err });
+      } else {
+        res.json({ msg: "SubCategories...", status: 200, data: data });
+      }
+    })
+  }
+
+
+  // get by category id
+
+module.exports.getByCategoryId= function(req,res){
+
+    let id =  req.params.categoryId;
+  console.log(id)
+  
+    SubcategoryModel.find({category:id}).populate('category').exec(function(err,data){
+      if (err) {
+        res.json({ msg: "Something went wrong!!!", status: -1, data: err });
+      } else {
+        res.json({ msg: "SubCategories...123", status: 200, data: data });
+      }
+    })
+  }
+
 //list
 module.exports.getAllSubcategories = function (req,res){
     SubcategoryModel.find().populate("category").exec(function (err, data){
@@ -63,3 +96,16 @@ module.exports.updateSubcategory = function(req,res){
         }
     })
 }
+//update by id
+module.exports.updateById= function(req,res){
+    let id = req.params.subcategoryId 
+    let subcategoryName = req.body.subcategoryName
+    let isActive = req.body.isActive
+    SubcategoryModel.findByIdAndUpdate({_id:id},{subcategoryName:subcategoryName,isActive:isActive},function(err,data){
+      if (err) {
+        res.json({ msg: "Something went wrong!!!", status: -1, data: err });
+      } else {
+        res.json({ msg: "roles...", status: 200, data: data });
+      }
+    })
+  }

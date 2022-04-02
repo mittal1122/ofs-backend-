@@ -1,70 +1,96 @@
-const CategoryModel = require("../model/category-model")
+const CategoryModel = require("../model/category-model");
+
+module.exports.addCategories = function (req, res) {
+  //db insert role
+
+  console.log(req.body.categoryName);
+
+  let category = new CategoryModel({
+    categoryName: req.body.categoryName,
+  });
+
+  category.save(function (err, success) {
+    if (err) {
+      // console.log(err)
+      res.json({ msg: "SMW", status: -1, data: req.body });
+    } else {
+      res.json({ msg: "category added", status: 200, data: success });
+    }
+  });
+};
+
+// get by id
+
+module.exports.getById = function (req, res) {
+  let id = req.params.categoryId;
+
+  CategoryModel.findById({ _id: id }, function (err, data) {
+    if (err) {
+      res.json({ msg: "Something went wrong!!!", status: -1, data: err });
+    } else {
+      res.json({ msg: "users...", status: 200, data: data });
+    }
+  });
+};
+
+//List
+module.exports.getAllCategories = function (req, res) {
+  //REST
+  CategoryModel.find(function (err, categories) {
+    if (err) {
+      res.json({ msg: "Something went wrong!!!", status: -1, data: err });
+    } else {
+      res.json({ msg: "categories...", status: 200, data: categories });
+    }
+  });
+};
+
+//delete
+module.exports.deleteCategory = function (req, res) {
+  let categoryId = req.params.categoryId;
+
+  CategoryModel.deleteOne({ _id: categoryId }, function (err, data) {
+    if (err) {
+      res.json({ msg: "Something went wrong!!!", status: -1, data: err });
+    } else {
+      res.json({ msg: "removed...", status: 200, data: data });
+    }
+  });
+};
+
+//update
+module.exports.updateCategory = function (req, res) {
+  let categoryId = req.params.categoryId;
+  let categoryName = req.body.categoryName;
+
+  CategoryModel.updateOne(
+    { _id: categoryId },
+    { categoryName: categoryName },
+    function (err, data) {
+      if (err) {
+        res.json({ msg: "Something went wrong!!!", status: -1, data: err });
+      } else {
+        res.json({ msg: "updated...", status: 200, data: data });
+      }
+    }
+  );
+};
 
 
-module.exports.addCategories=function (req,res){
-    //db insert role
+//update by id
+module.exports.updateById = function (req, res) {
+  let id = req.params.categoryId;
+  let categoryName = req.body.categoryName;
 
-    console.log(req.body.categoryName);
-    
-
-    let category= new CategoryModel({
-        categoryName:req.body.categoryName
-    })
-
-    category.save(function(err,success){
-        if(err){
-            // console.log(err)
-            res.json({msg:"SMW", status:-1 ,data:req.body})
-        }
-        else{
-            res.json({msg:"category added", status:200, data:success})
-        }
-    })
-    
-}
-
-module.exports.getAllCategories = function(req,res){
-    //REST 
-    CategoryModel.find(function(err,categories){
-        if(err){
-            res.json({msg:"Something went wrong!!!",status:-1,data:err})
-        }else{
-            res.json({msg:"categories...",status:200,data:categories})
-
-        }
-
-    })
-
-}
-
-module.exports.deleteCategory = function(req,res){
-    let categoryId = req.params.categoryId
-
-     
-    CategoryModel.deleteOne({"_id":categoryId},function(err,data){
-        if(err){
-            res.json({msg:"Something went wrong!!!",status:-1,data:err})
-        }else{
-            res.json({msg:"removed...",status:200,data:data})
-        }
-    })
-
-}
-
-
-module.exports.updateCategory = function(req,res){
-
-     
-    let categoryId = req.params.categoryId 
-    let categoryName = req.body.categoryName 
-
-    CategoryModel.updateOne({_id:categoryId},{categoryName:categoryName},function(err,data){
-        if(err){
-            res.json({msg:"Something went wrong!!!",status:-1,data:err})
-        }else{
-            res.json({msg:"updated...",status:200,data:data})
-        }
-    })
-
-}
-
+  CategoryModel.findByIdAndUpdate(
+    { _id: id },
+    { categoryName: categoryName },
+    function (err, data) {
+      if (err) {
+        res.json({ msg: "Something went wrong!!!", status: -1, data: err });
+      } else {
+        res.json({ msg: "users...", status: 200, data: data });
+      }
+    }
+  );
+};

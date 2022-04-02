@@ -14,7 +14,9 @@ module.exports.addpayment = function(req,res){
         refNum:refNum,
         isRefundprocess:isRefundprocess,
         order:order,
-        user:user
+        user:user,
+        mode:req.body.mode,
+        status:req.body.status
         
     })  
     payment.save(function(err,data){
@@ -59,8 +61,13 @@ module.exports.updatepayment= function(req,res){
     let user =req.body.user
     let order =req.body.order
     let refNum = req.body.refNum
+    let mode=req.body.mode
+    let status=req.body.status
 
-    paymentModel.updateOne({_id:paymentId},{totalAmount:totalAmount,isRefundprocess:isRefundprocess,user:user,order:order,refNum:refNum},function(err,data){
+    
+    paymentModel.updateOne({_id:paymentId},{totalAmount:totalAmount,isRefundprocess:isRefundprocess,user:user,order:order,refNum:refNum, 
+        mode:mode,
+        status:status},function(err,data){
         if(err){
             res.json({msg:"SMW" , status:-1, data:err })
         } else{

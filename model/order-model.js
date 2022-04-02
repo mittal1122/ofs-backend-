@@ -5,7 +5,7 @@ const orderSchema =new mongoose.Schema({
         type:Number
     },
     isRefund:{
-        type:Number
+        type:Boolean
     },
     user:{
         type:mongoose.Schema.Types.ObjectId,

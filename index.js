@@ -9,7 +9,7 @@ const userController = require("./controller/user-controller");
 const subcategoryController = require("./controller/subcategory-controller");
 const stateController = require("./controller/state-controller");
 const cityController = require("./controller/city-controller");
-const vendorDetailController = require("./controller/vendorDetail-controller");
+const vendorController = require("./controller/vendor-controller");
 const custAddressController = require("./controller/customerAddress-controller");
 const productController = require("./controller/product-controller");
 const vendorProductController = require("./controller/vendor_product-controller");
@@ -20,6 +20,7 @@ const orderController = require("./controller/order-controller");
 const orderDetailController = require("./controller/order_details-controller");
 const customController = require("./controller/customization-controller");
 const paymentController = require("./controller/payment.-controller");
+const VProductImgController = require("./controller/v_productimg-controller")
 
 const app = express();
 app.use(cors());
@@ -55,53 +56,71 @@ app.get("/", function (req, res) {
 });
 
 
-app.get("/login", sesssion_controller.login);
-app.get("/signup", sesssion_controller.signup);
-app.post("/saveuser", sesssion_controller.saveuser);
+// app.get("/login", sesssion_controller.login);
+// app.get("/signup", sesssion_controller.signup);
+// app.post("/saveuser", sesssion_controller.saveuser);
 
 
 
 //roles
 app.post("/roles", roleController.addRole);
 app.get("/roles", roleController.getAllRoles);
+app.get("/roles/:roleId",roleController.getById);
 app.delete("/roles/:roleId", roleController.deleteRole);
-app.put("/roles/:roleId", roleController.updateRole);
+// app.put("/roles/:roleId", roleController.updateRole);
+app.put("/roles/:roleId", roleController.updateById);
+
 
 
 
 //users
 app.post("/users", userController.addUser);
 app.get("/users", userController.getAllUsers);
+app.get("/users/:userId", userController.getById);
 app.delete("/users/:userId", userController.deleteUser);
-app.put("/users/:userId", userController.updateUser);
+// app.put("/users/:userId", userController.updateUser);
+app.put("/users/:userId", userController.updateById);
 app.post("/login", userController.login);
 
 //category
 app.post("/categories", categoryController.addCategories);
 app.get("/categories", categoryController.getAllCategories);
+app.get("/categories/:categoryId", categoryController.getById);
 app.delete("/categories/:categoryId", categoryController.deleteCategory);
-app.put("/categories/:categoryId", categoryController.updateCategory);
+// app.put("/categories/:categoryId", categoryController.updateCategory);
+app.put("/categories/:categoryId", categoryController.updateById);
+
 
 //subcategory
 app.post("/subcategories", subcategoryController.addSubcategory);
 app.get("/subcategories", subcategoryController.getAllSubcategories);
+app.get("/subcategories/:subcategoryId", subcategoryController.getById);
+app.get("/subcategoriesbycategory/:categoryId", subcategoryController.getByCategoryId);
 app.delete(
     "/subcategories/:subcategoryId",
   subcategoryController.deleteSubcategory
 );
-app.put("/subcategories/:subcategoryId", subcategoryController.updateSubcategory);
+// app.put("/subcategories/:subcategoryId", subcategoryController.updateSubcategory);
+app.put("/subcategories/:subcategoryId", subcategoryController.updateById);
+
 
 //brand
 app.post("/brands", brandController.addBrands);
 app.get("/brands", brandController.getAllBrand);
+app.get("/brands/:brandId", brandController.getById);
 app.delete("/brands/:brandId", brandController.deleteBrand);
-app.put("/brands/:brandId", brandController.updateBrand);
+// app.put("/brands/:brandId", brandController.updateBrand);
+app.put("/brands/:brandId", brandController.updateById);
+
 
 //state
 app.post("/states", stateController.addState);
 app.get("/states", stateController.getAllStates);
+app.get("/states/:stateId", stateController.getById);
 app.delete("/states/:stateId", stateController.deleteStates);
-app.put("/states/:stateId", stateController.UpdateState);
+// app.put("/states/:stateId", stateController.UpdateState);
+app.put("/states/:stateId", stateController.updateById);
+
 
 //city
 app.post("/cities", cityController.addCity);
@@ -110,13 +129,16 @@ app.delete("/cities/:cityId", cityController.deleteCity);
 app.put("/cities/:cityId", cityController.updateCity);
 
 //vendorDetail
-app.post("/vendordetails", vendorDetailController.addvendorDetail);
-app.get("/vendordetails", vendorDetailController.getAllvendorDetails);
+app.post("/vendor", vendorController.addvendor);
+app.get("/vendor", vendorController.getAllvendor);
+app.get("/vendor/:vendorId", vendorController.getById);
 app.delete(
-  "/vendordetails/:vendorId",
-  vendorDetailController.deletevendorDetail
+  "/vendor/:vendorId",
+  vendorController.deletevendor
 );
-app.put("/vendordetails/:vendorId", vendorDetailController.updatevendorDetails);
+// app.put("/vendor/:vendorId", vendorController.updatevendor);
+app.put("/vendor/:vendorId", vendorController.updateById);
+
 
 //Customer Address
 app.post("/customeraddresses", custAddressController.addcustAddress);
@@ -129,8 +151,11 @@ app.put("/customeraddresses/:custAddressId", custAddressController.updatecustAdd
 //product
 app.post("/products", productController.addProduct);
 app.get("/products", productController.getAllproducts);
+app.get("/products/:productId", productController.getById);
 app.delete("/products/:productId", productController.deleteProduct);
-app.put("/products/:productId", productController.updateProduct);
+// app.put("/products/:productId", productController.updateProduct);
+app.put("/products/:productId", productController.updateById);
+
 
 //vendor_Product
 app.post("/vendorproducts", vendorProductController.addvendorProduct);
@@ -186,6 +211,11 @@ app.get("/customization", customController.getAllcustomization);
 app.delete("/customization/:customId", customController.deletecustomization);
 app.put("/customization/:customId", customController.upadatecustomization);
 
+//Product Img
+app.post("/productimgs",VProductImgController.addproductimg)
+app.get("/productimgs",VProductImgController.getAllProductImg)
+app.delete("/productimgs/:productImgId",VProductImgController.deleteProductImg)
+app.put("/productimgs/:ProductImgId",VProductImgController.updateproductImg)
 // app.get("/login", function(req,res){
 //     res.write("login....")
 //     res.end()

@@ -33,6 +33,25 @@ module.exports.getAllRoles = function (req, res) {
   });
 };
 
+
+
+// get by id
+
+module.exports.getById= function(req,res){
+
+  let id = req.params.roleId;
+
+
+  RoleModel.findById({_id:id},function(err,data){
+    if (err) {
+      res.json({ msg: "Something went wrong!!!", status: -1, data: err });
+    } else {
+      res.json({ msg: "roles...", status: 200, data: data });
+    }
+  })
+}
+
+
 // delete
 module.exports.deleteRole = function (req, res) {
   let roleId = req.params.roleId;
@@ -47,6 +66,8 @@ module.exports.deleteRole = function (req, res) {
   });
 };
 
+
+//update
 module.exports.updateRole = function (req, res) {
   //update role set roleName = admin where roleId = 12121
   let roleId = req.params.roleId;
@@ -65,4 +86,19 @@ module.exports.updateRole = function (req, res) {
   );
 };
 
-//roleName
+
+//update by id
+module.exports.updateById= function(req,res){
+
+  let id = req.params.roleId;
+  let roleName=req.body.roleName
+
+  RoleModel.findByIdAndUpdate({_id:id},{roleName:roleName},function(err,data){
+    if (err) {
+      res.json({ msg: "Something went wrong!!!", status: -1, data: err });
+    } else {
+      res.json({ msg: "roles...", status: 200, data: data });
+    }
+  })
+}
+
