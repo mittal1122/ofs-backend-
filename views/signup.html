@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>signup page</title>
+    <link rel="signup.css" href="/views/signup.css">
+</head>
+<style>
+
+</style>
+
+<body>
+    <h1>Online Furniture Shopping</h1>
+    <div class= main>
+
+        <div id=first >
+            <div class= log>
+            <p>Login...</p>
+            </div>
+            <div  class= log>
+                <p>Get access to your Orders, <br>
+                    Wishlist and Recommendation</p>
+                
+            </div>
+        </div>
+        <div id=second>
+            <form action="saveuser"  method="post">
+                <div class = log>
+                    Enter Your Name  :<input class=inname type="text" name ="user_name"/>
+                </div> 
+                <div class =log>
+                    Enter Your Email  : <input type="email" name="user_email" />
+                </div>       
+                <div>
+                    Set a new Password  :<input type="password" name="password" />
+                    <br>
+                    Confirm Your Password  :<input type="password" name="password" />
+                </div>
+                <div><button type="submit">SignUp</button></div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
