@@ -23,6 +23,23 @@ module.exports.addOffer = function (req, res) {
   });
 };
 
+
+// get by id
+
+module.exports.getById= function(req,res){
+
+  let id = req.params.offerId;
+
+
+  OfferModel.findById({_id:id},function(err,data){
+    if (err) {
+      res.json({ msg: "Something went wrong!!!", status: -1, data: err });
+    } else {
+      res.json({ msg: "users...", status: 200, data: data });
+    }
+  })
+}
+
 //list
 
 module.exports.getAllOffers = function (req, res) {
@@ -47,6 +64,26 @@ module.exports.deleteOffer = function (req, res) {
     }
   });
 };
+
+//update by id
+module.exports.updateById= function(req,res){
+
+  let id = req.params.offerId;
+  let offer = req.body.offer;
+  let maxDiscount = req.body.maxDiscount;
+  let offerEndDate = req.body.offerEndDate;
+  let isActive = req.body.isActive;
+  
+
+  UserModel.findByIdAndUpdate({_id:id},{offer: offer, offerEndDate: offerEndDate, maxDiscount: maxDiscount,isActive:isActive},function(err,data){
+    if (err) {
+      res.json({ msg: "Something went wrong!!!", status: -1, data: err });
+    } else {
+      res.json({ msg: "users...", status: 200, data: data });
+    }
+  })
+}
+
 //update
 module.exports.updateOffer = function (req, res) {
   let offerId = req.params.offerId;

@@ -25,6 +25,24 @@ module.exports.addorder_detail= function(req,res){
     })
 }
 
+
+// get by id
+
+module.exports.getById= function(req,res){
+
+    let id = req.params.orderId;
+  
+  
+    orderdetailModel.findById({_id:id},function(err,data){
+      if (err) {
+        res.json({ msg: "Something went wrong!!!", status: -1, data: err });
+      } else {
+        res.json({ msg: "order details...", status: 200, data: data });
+      }
+    })
+  }
+
+
 //LIST
 module.exports.getAllOrder_details=function(req,res){
     orderdetailModel.find().populate("user").populate("order").populate("vendorproduct").exec(function(err,data){

@@ -13,9 +13,9 @@ const vendorProductSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref:"product"
     },
-    vendorDetail:{
+    vendor:{
         type: mongoose.Schema.Types.ObjectId,
-        ref:"vendorDetail"
+        ref:"vendor"
     }
 })
 

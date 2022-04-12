@@ -55,11 +55,26 @@ module.exports.getAllproducts=(req,res)=>{
     })
 }
 
+
+
+
+//find one 
+module.exports.getoneproducts=(req,res)=>{
+    ProductModel.findOne().populate("category").populate("subcategory").populate("brand").exec(function(err,data){
+        if(err){
+            res.json({msg:"something went wrong", data:err, status:-1})
+        }
+        else{
+            res.json({msg:"Cities ret... ", data: data,status:200})
+        }
+    })
+}
+
 //delete
 module.exports.deleteProduct=function(req,res){
     let productId= req.params.productId
 
-    ProductModel.deleteOne({"_id":productId},function(err,success){
+    ProductModel.deleteOne({_id:productId},function(err,success){
         if(err){
             res.json({msg:"Something went wrong!!!",status:-1,data:err})
         }else{

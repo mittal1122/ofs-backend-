@@ -27,7 +27,7 @@ module.exports.addOrder=function(req,res){
 
 //list 
 module.exports.getAllOrders=function(req,res){
-    orderModel.find().populate("status").populate("user").populate("address").exec(function(err,data){
+    orderModel.find().populate("status").populate("user").populate("custmerAddress").exec(function(err,data){
         if (err) {
             res.json({ msg: "SMW", data: err, status: -1 })//-1  [ 302 404 500 ]
         } else {

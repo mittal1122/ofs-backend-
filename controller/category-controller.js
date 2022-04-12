@@ -89,7 +89,7 @@ module.exports.updateById = function (req, res) {
       if (err) {
         res.json({ msg: "Something went wrong!!!", status: -1, data: err });
       } else {
-        res.json({ msg: "users...", status: 200, data: data });
+        res.json({ msg: "users...", status: 200, data:data });
       }
     }
   );

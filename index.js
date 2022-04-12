@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const fileupload = require('express-fileupload');
+// app.use(fileupload());
 
 const roleController = require("./controller/role-controller");
 const categoryController = require("./controller/category-controller");
@@ -81,6 +83,7 @@ app.delete("/users/:userId", userController.deleteUser);
 // app.put("/users/:userId", userController.updateUser);
 app.put("/users/:userId", userController.updateById);
 app.post("/login", userController.login);
+app.post("/loginadmin",userController.loginAdmin)
 
 //category
 app.post("/categories", categoryController.addCategories);
@@ -125,8 +128,11 @@ app.put("/states/:stateId", stateController.updateById);
 //city
 app.post("/cities", cityController.addCity);
 app.get("/cities", cityController.getAllcities);
+app.get("/cities/:cityId",cityController.getById);
 app.delete("/cities/:cityId", cityController.deleteCity);
-app.put("/cities/:cityId", cityController.updateCity);
+// app.put("/cities/:cityId", cityController.updateCity);
+app.get("/citiesbystateid/:stateId", cityController.getByStateId);
+app.put("/cities/cityId",cityController.updateById)
 
 //vendorDetail
 app.post("/vendor", vendorController.addvendor);
@@ -152,6 +158,7 @@ app.put("/customeraddresses/:custAddressId", custAddressController.updatecustAdd
 app.post("/products", productController.addProduct);
 app.get("/products", productController.getAllproducts);
 app.get("/products/:productId", productController.getById);
+app.get("/productone",productController.getoneproducts)
 app.delete("/products/:productId", productController.deleteProduct);
 // app.put("/products/:productId", productController.updateProduct);
 app.put("/products/:productId", productController.updateById);
@@ -193,6 +200,7 @@ app.put("/orders/:orderId", orderController.updateOrder);
 //order-detail
 app.post("/orderdetails", orderDetailController.addorder_detail);
 app.get("/orderdetails", orderDetailController.getAllOrder_details);
+app.get("/ordersdetailsbyid/:orderId", orderDetailController.getById);
 app.delete(
   "/orderdetails/:order_detailId",
   orderDetailController.deleteOrder_details

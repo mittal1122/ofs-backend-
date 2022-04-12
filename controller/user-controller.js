@@ -12,14 +12,15 @@ module.exports.addUser = function (req, res) {
   let encPassword = bcrypt.hashSync(password, 10);
   let role = req.body.role;
   let dt = new Date()
-  let ct = dt.getDate()+"-"+dt.getMonth()+"-"+dt.getFullYear()
+  let ct = dt.getDate()+"-"+(dt.getMonth()+1)+"-"+dt.getFullYear()
   let user = new UserModel({
     firstName: firstName,
     email: email,
     password: encPassword,
     role: role,
     isActive: req.body.isActive,
-    gender:gender,mobileNum:mobileNum, CreatedAt:ct
+    gender:gender,mobileNum:mobileNum, 
+    CreatedAt:ct
   });
 
   user.save(function (err, data) {
@@ -52,8 +53,7 @@ module.exports.getAllUsers = function (req, res) {
 module.exports.getById= function(req,res){
 
   let id = req.params.userId;
-
-
+  
   UserModel.findById({_id:id},function(err,data){
     if (err) {
       res.json({ msg: "Something went wrong!!!", status: -1, data: err });
@@ -125,7 +125,7 @@ module.exports.updateById= function(req,res){
   })
 }
 
-//login
+//login  for customer / vendor
 module.exports.login = function (req, res) {
   let email = req.body.email;
   let password = req.body.password;
@@ -146,3 +146,26 @@ module.exports.login = function (req, res) {
     }
   });
 };
+
+//login  for Admin
+module.exports.loginAdmin = function (req, res) {
+  let id = '620c892f63551bfea59868d3'
+  let password = req.body.password;
+
+  let isCorrect = false; 
+
+  UserModel.findOne({ _id: id }).populate('role').exec(function (err, data) {
+    if (data) {
+      let ans = bcrypt.compareSync(password, data.password);
+      if (ans == true) {
+        isCorrect = true;
+      }
+    }
+    if (isCorrect == false) {
+      res.json({ msg: "Admin Invalid ", data: req.body, status: -1 }); //-1  [ 302 404 500 ]
+    } else {
+      res.json({ msg: "Login....", data: data, status: 200 }); //http status code
+    }
+  });
+};
+
