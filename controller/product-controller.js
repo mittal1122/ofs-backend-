@@ -9,12 +9,14 @@ module.exports.addProduct = function(req,res){
     let subcategory=req.body.subcategory
     let brand =req.body.brand
 
+
     let product= new ProductModel({
         productName:productName,
         baseprice:baseprice,
         category:category,
         subcategory:subcategory,
-        brand:brand
+        brand:brand,
+        vendorproductimg:vendorproductimg
     })
     product.save(function(err,data){
         if(err){
@@ -32,7 +34,7 @@ module.exports.getById= function(req,res){
     let id = req.params.productId;
   
   
-    ProductModel.findById({_id:id},function(err,data){
+    ProductModel.findById({_id:id}).populate("vendorproductimg").populate("category").populate("subcategory").populate("brand").exec(function(err,data){
       if (err) {
         res.json({ msg: "Something went wrong!!!", status: -1, data: err });
       } else {
@@ -45,7 +47,7 @@ module.exports.getById= function(req,res){
   
 //list
 module.exports.getAllproducts=(req,res)=>{
-    ProductModel.find().populate("category").populate("subcategory").populate("brand").exec(function(err,data){
+    ProductModel.find().populate("vendorproductimg").populate("category").populate("subcategory").populate("brand").exec(function(err,data){
         if(err){
             res.json({msg:"something went wrong", data:err, status:-1})
         }
@@ -60,7 +62,7 @@ module.exports.getAllproducts=(req,res)=>{
 
 //find one 
 module.exports.getoneproducts=(req,res)=>{
-    ProductModel.findOne().populate("category").populate("subcategory").populate("brand").exec(function(err,data){
+    ProductModel.findOne().populate("vendorproductimg").populate("category").populate("subcategory").populate("brand").exec(function(err,data){
         if(err){
             res.json({msg:"something went wrong", data:err, status:-1})
         }
@@ -92,8 +94,9 @@ module.exports.updateProduct=function(req,res){
     let category =req.body.category
     let subcategory=req.body.subcategory
     let brand=req.body.brand
+    let vendorproductimg = req.body.vendorproductimg
 
-    ProductModel.updateOne({_id:productId},{productName:productName,baseprice:baseprice,category:category,subcategory:subcategory,brand:brand},function(err,data){
+    ProductModel.updateOne({_id:productId},{productName:productName,baseprice:baseprice,category:category,subcategory:subcategory,brand:brand,vendorproductimg:vendorproductimg},function(err,data){
         if(err){
             res.json({msg:"Something went wrong!!!",status:-1,data:err})
         }else{
@@ -111,14 +114,14 @@ module.exports.updateById= function(req,res){
     let category =req.body.category
     let subcategory=req.body.subcategory
     let brand=req.body.brand
-
+    let vendorproductimg = req.body.vendorproductimg
     
   
-    ProductModel.findByIdAndUpdate({_id:productId},{productName:productName,baseprice:baseprice,category:category,subcategory:subcategory,brand:brand},function(err,data){
+    ProductModel.findByIdAndUpdate({_id:productId},{productName:productName,baseprice:baseprice,category:category,subcategory:subcategory,brand:brand,vendorproductimg:vendorproductimg},function(err,data){
       if (err) {
         res.json({ msg: "Something went wrong!!!", status: -1, data: err });
       } else {
-        res.json({ msg: "users...", status: 200, data: data });
+        res.json({ msg: "Products...", status: 200, data:data });
       }
     })
   }

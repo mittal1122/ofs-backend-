@@ -130,9 +130,9 @@ app.post("/cities", cityController.addCity);
 app.get("/cities", cityController.getAllcities);
 app.get("/cities/:cityId",cityController.getById);
 app.delete("/cities/:cityId", cityController.deleteCity);
-// app.put("/cities/:cityId", cityController.updateCity);
+app.put("/cities/:cityId", cityController.updateCity);
 app.get("/citiesbystateid/:stateId", cityController.getByStateId);
-app.put("/cities/cityId",cityController.updateById)
+// app.put("/citiesUpdate/cityId",cityController.updateById)
 
 //vendorDetail
 app.post("/vendor", vendorController.addvendor);
@@ -182,6 +182,7 @@ app.put("/offers/:offerId", offerController.updateOffer);
 //cart
 app.post("/carts", cartController.addcart);
 app.get("/carts", cartController.getAllcarts);
+app.get("/allcarts/:userId",cartController.getAllcartsNew)
 app.delete("/carts/:cartId", cartController.deletecart);
 app.put("/carts/:cartId", cartController.updatecart);
 
@@ -200,7 +201,7 @@ app.put("/orders/:orderId", orderController.updateOrder);
 //order-detail
 app.post("/orderdetails", orderDetailController.addorder_detail);
 app.get("/orderdetails", orderDetailController.getAllOrder_details);
-app.get("/ordersdetailsbyid/:orderId", orderDetailController.getById);
+app.get("/ordersdetailsbyid/:orderId", orderDetailController.getByOrderId);
 app.delete(
   "/orderdetails/:order_detailId",
   orderDetailController.deleteOrder_details

@@ -9,7 +9,11 @@ const CitySchema = new mongoose.Schema({
     state :{
         type:mongoose.Schema.Types.ObjectId,
         ref:"state"
+    },
+    isActive:{
+        type:Boolean
     }
+    
 })
 
 const CityModel = mongoose.model("city",CitySchema)

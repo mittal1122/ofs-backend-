@@ -26,14 +26,14 @@ module.exports.addorder_detail= function(req,res){
 }
 
 
-// get by id
+// get by orderId
 
-module.exports.getById= function(req,res){
+module.exports.getByOrderId= function(req,res){
 
     let id = req.params.orderId;
   
   
-    orderdetailModel.findById({_id:id},function(err,data){
+    orderdetailModel.find({orderId:id}).populate('user').populate('order').populate('vendorproduct').exec(function(err,data){
       if (err) {
         res.json({ msg: "Something went wrong!!!", status: -1, data: err });
       } else {

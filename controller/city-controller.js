@@ -5,10 +5,12 @@ module.exports.addCity =function(req,res){
 
     let cityName =req.body.cityName
     let state =req.body.state
+    
 
     let city =new CityModel({
         cityName :cityName,
-        state :state
+        state :state,
+        isActive:req.body.isActive
     })
 
     city.save(function(err,data){
@@ -25,7 +27,7 @@ module.exports.addCity =function(req,res){
 // get by id
 module.exports.getById= function(req,res){
     let id = req.params.cityId;
-    CityModel.findById({_id:id},function(err,data){
+    CityModel.findById({_id:id}).populate("state").exec(function(err,data){
       if (err) {
         res.json({ msg: "Something went wrong!!!", status: -1, data: err });
       } else {
@@ -84,9 +86,12 @@ module.exports.deleteCity = function(req,res){
 module.exports.updateCity = function(req,res){
 
     let cityId = req.params.cityId 
+    let cityName =req.body.cityName
     let state = req.body.state
+    let isActive =req.body.isActive
 
-    CityModel.updateOne({_id:cityId},{state:state},function(err,data){
+
+    CityModel.updateOne({_id:cityId},{cityName:cityName,state:state,isActive:isActive},function(err,data){
         if(err){
             res.json({msg:"Something went wrong!!!",status:-1,data:err})
         }else{
@@ -100,10 +105,11 @@ module.exports.updateCity = function(req,res){
 module.exports.updateById= function(req,res){
 
     let id = req.params.cityId;
+    let cityName =req.body.cityName
     let state = req.body.state
-    
+    let isActive =req.body.isActive
   
-    UserModel.findByIdAndUpdate({_id:id},{state:state},function(err,data){
+    UserModel.findByIdAndUpdate({_id:id},{cityName:cityName,state:state,isActive:isActive},function(err,data){
       if (err) {
         res.json({ msg: "Something went wrong!!!", status: -1, data: err });
       } else {

@@ -5,6 +5,9 @@ let StateSchema =new mongoose.Schema({
     stateName:{
         type:String,
         required:true
+    },
+    isActive:{
+        type:Boolean
     }
     
 })

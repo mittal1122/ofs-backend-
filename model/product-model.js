@@ -20,6 +20,10 @@ const productSchema=new mongoose.Schema({
     brand:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"brand"
+    },
+    vendorproductimg:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"vendorproductimg"
     }
 })
 

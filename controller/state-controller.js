@@ -5,7 +5,8 @@ module.exports.addState =function(req,res){
     console.log(req.body.stateName);
 
     let state= new StateModel({
-        stateName:req.body.stateName
+        stateName:req.body.stateName,
+        isActive:req.body.isActive
     })
     state.save(function(err,success)
     {
@@ -60,7 +61,8 @@ module.exports.deleteStates = function(req,res){
 module.exports.UpdateState = function(req,res){
     let stateName= req.body.stateName
     let stateId= req.params.stateId
-    StateModel.updateOne({_id:stateId},{stateName:stateName}, function(err,data){
+    let isActive =req.body.isActive
+    StateModel.updateOne({_id:stateId},{stateName:stateName,isActive:isActive}, function(err,data){
         if(err){
             res.json({msg:"Something went wrong!!!",status:-1,data:err})
         }else{
@@ -74,8 +76,10 @@ module.exports.UpdateState = function(req,res){
 module.exports.updateById= function(req,res){
     let stateName= req.body.stateName
     let id= req.params.stateId
+    let isActive =req.body.isActive
+
   
-    StateModel.findByIdAndUpdate({_id:id},{stateName:stateName},function(err,data){
+    StateModel.findByIdAndUpdate({_id:id},{stateName:stateName,isActive:isActive},function(err,data){
       if (err) {
         res.json({ msg: "Something went wrong!!!", status: -1, data: err });
       } else {

@@ -1,4 +1,8 @@
 const mongoose = require ("mongoose")
+const multer = require("multer");
+
+const upload = multer({ dest: "frontend/public/img/spaceprofilepics" });
+
 
 const VenderProductImgSchema = new mongoose.Schema({
     vendorproductId :{
